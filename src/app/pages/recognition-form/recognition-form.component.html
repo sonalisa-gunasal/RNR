@@ -1,0 +1,80 @@
+<div class="main">
+    <mat-card>
+        <mat-card-header>
+            <div class="w-100 d-flex align-items-center justify-content-between">
+                <div class="brand">
+                    <div class="logo"><span>✓</span></div>
+                    <h1>Recognize a Teammate</h1>
+                </div>
+
+                <span class="badge">RNR • Form</span>
+            </div>
+        </mat-card-header>
+
+        <hr />
+
+        <form [formGroup]="form" (ngSubmit)="submit()" novalidate>
+            <div class="grid">
+                <div class="field">
+                    <mat-form-field class="example-full-width">
+                        <input type="text" placeholder="Choose Team Mate" aria-label="Number" matInput
+                            [matAutocomplete]="auto">
+                        <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+                            @for (item of users; track item) {
+                            <mat-option [value]="item.userId">{{item.name}}</mat-option>
+                            }
+                        </mat-autocomplete>
+                    </mat-form-field>
+                    <div class="help">Start typing (autocomplete)</div>
+                </div>
+
+                <div class="field">
+                    <label>Category</label>
+                    <div class="chips" role="radiogroup" aria-label="Category">
+                        <button type="button" class="chip" role="radio"
+                            [attr.aria-checked]="form.value.category==='Bug Fix'" (click)="setCategory('Bug Fix')">🐞
+                            Bug
+                            Fix</button>
+                        <button type="button" class="chip" role="radio"
+                            [attr.aria-checked]="form.value.category==='Help'" (click)="setCategory('Help')">🤝
+                            Help</button>
+                        <button type="button" class="chip" role="radio"
+                            [attr.aria-checked]="form.value.category==='Innovation'"
+                            (click)="setCategory('Innovation')">💡
+                            Innovation</button>
+                        <button type="button" class="chip" role="radio"
+                            [attr.aria-checked]="form.value.category==='Customer Appreciation'"
+                            (click)="setCategory('Customer Appreciation')">💬 Customer Appreciation</button>
+                    </div>
+                    <div class="help">Pick exactly one</div>
+                </div>
+            </div>
+
+
+            <div class="field">
+                <label>Comments</label>
+                <textarea rows="5" maxlength="500" formControlName="comments"
+                    placeholder="Describe the contribution…"></textarea>
+                <div class="help">{{charCount()}}/500 characters</div>
+            </div>
+
+
+            <div class="actions">
+                <!-- <button type="submit" class="btn primary" [disabled]="submitting || form.invalid">
+                <ng-container *ngIf="!submitting; else loading">Send Recognition</ng-container>
+                <ng-template #loading>Submitting…</ng-template>
+            </button> -->
+
+                <button mat-raised-button class="btn-secondary">
+                    <mat-icon>undo</mat-icon>
+                    Reset
+                </button>
+
+                <button mat-raised-button color="primary">
+                    <mat-icon>check</mat-icon>
+                    Submit
+                </button>
+            </div>
+        </form>
+    </mat-card>
+</div>

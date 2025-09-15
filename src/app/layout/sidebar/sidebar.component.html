@@ -1,0 +1,59 @@
+<div class="app-layout">
+    <nav class="sidebar" [ngClass]="{ 'collapsed': isCollapsed }">
+        <!-- sidebar content here -->
+        <nav class="sidebar" [ngClass]="{ 'collapsed': isCollapsed }">
+            <div class="user-management-container">
+                <!-- Sidebar -->
+                <aside class="sidebar">
+                    <div class="sidebar-header d-flex align-items-center justify-content-between">
+                        <div class="sidebar-title" *ngIf="!isCollapsed">Menu</div>
+                        <mat-icon class="sidebar-toggle" (click)="toggleSidebar()">menu</mat-icon>
+                    </div>
+
+                    <nav class="sidebar-menu pt-3">
+                        <div class="menu-section">
+                            <a [routerLink]="'/dashboard'" routerLinkActive="active" class="menu-item">
+                                <mat-icon class="mr-2" aria-hidden="false">dashboard</mat-icon>
+                                <span *ngIf="!isCollapsed">Dashboard</span>
+                            </a>
+
+                            <a [routerLink]="'/recognition-form'" routerLinkActive="active" class="menu-item">
+                                <mat-icon class="mr-2" aria-hidden="false">support_agent</mat-icon>
+                                <span *ngIf="!isCollapsed">Recognition Form </span>
+                            </a>
+
+                            <a [routerLink]="'/recognition-list'" routerLinkActive="active" class="menu-item">
+                                <mat-icon class="mr-2" aria-hidden="false">insights</mat-icon>
+                                <span *ngIf="!isCollapsed">Recognition List</span>
+                            </a>
+
+                            <a [routerLink]="'/reports'" routerLinkActive="active" class="menu-item">
+                                <mat-icon class="mr-2" aria-hidden="false">playlist_add_check</mat-icon>
+                                <span *ngIf="!isCollapsed">Reports</span>
+                            </a>
+ 
+                        </div>
+                    </nav>
+                </aside>
+            </div>
+        </nav>
+    </nav>
+
+    <div class="main-content">
+        <header class="header">
+            <div class="header-container">
+                <a href="#" class="logo">
+                    <div class="logo-icon">DX</div>
+                    <div>
+                        <span class="logo-text">&nbsp;DX - CLAPCLOUD</span>
+                        <div class="logo-subtitle">where every effort counts !</div>
+                    </div>
+                </a>
+            </div>
+        </header>
+
+        <main class="content">
+            <router-outlet></router-outlet>
+        </main>
+    </div>
+</div>

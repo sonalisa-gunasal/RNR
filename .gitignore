@@ -1,0 +1,34 @@
+# Node modules
+node_modules/
+
+# Build output
+dist/
+build/
+
+# Environment files
+.env
+.env.*
+
+# IDE and OS files
+.DS_Store
+.vscode/
+.idea/
+*.swp
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Angular specific
+.angular/cache/
+
+# Coverage reports
+coverage/
+
+# Misc
+*.tgz
+
+# Optional: lock files (uncomment if you want to ignore)
+# package-lock.json
+# yarn.lock
