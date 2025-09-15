@@ -1,0 +1,154 @@
+
+.dashboard-container {
+	display: flex;
+	flex-direction: column;
+	min-height: 100vh;
+	background: #f7fafc;
+	padding: 24px;
+}
+
+.dashboard-top {
+	display: flex;
+	gap: 32px;
+	margin-bottom: 32px;
+}
+.dashboard-top-left {
+	flex: 1;
+	background: #fff;
+	border-radius: 12px;
+	box-shadow: 0 1px 4px rgba(2,6,23,0.08);
+	padding: 32px 24px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+.dashboard-top-right {
+	flex: 1;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.profile-card {
+	background: #fff;
+	border-radius: 12px;
+	box-shadow: 0 1px 4px rgba(2,6,23,0.08);
+	padding: 32px 24px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	min-width: 260px;
+}
+.profile-avatar {
+	font-size: 3rem;
+	margin-bottom: 12px;
+}
+.profile-info {
+	text-align: center;
+}
+.profile-name {
+	font-weight: 700;
+	font-size: 1.2rem;
+}
+.profile-email, .profile-team, .profile-points {
+	font-size: 1rem;
+	color: #64748b;
+	margin-top: 4px;
+}
+.dashboard-bottom {
+	flex: 1;
+	background: #fff;
+	border-radius: 12px;
+	box-shadow: 0 1px 4px rgba(2,6,23,0.08);
+	padding: 32px 24px;
+}
+.leaderboard-container header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	margin-bottom: 18px;
+}
+.leaderboard-container h1 {
+	margin: 0;
+	font-size: 1.5rem;
+}
+.filters {
+	display: flex;
+	gap: 8px;
+	align-items: center;
+}
+.search {
+	padding: 8px 12px;
+	width: 240px;
+	border-radius: 8px;
+	border: 1px solid #e2e8f0;
+}
+select {
+	padding: 8px 10px;
+	border-radius: 8px;
+	border: 1px solid #e2e8f0;
+}
+table {
+	width: 100%;
+	border-collapse: collapse;
+	background: white;
+	border-radius: 8px;
+	overflow: hidden;
+	box-shadow: 0 1px 2px rgba(2,6,23,0.08);
+}
+th, td {
+	text-align: left;
+	padding: 12px 16px;
+	border-bottom: 1px solid #f1f5f9;
+}
+th {
+	background: #f8fafc;
+	font-weight: 600;
+	font-size: 0.9rem;
+}
+tr.top {
+	background: linear-gradient(90deg, #fff7ed, #ecfeff);
+}
+.rank {
+	font-weight: 700;
+	width: 64px;
+}
+.progress {
+	height: 8px;
+	background: #eef2ff;
+	border-radius: 999px;
+	overflow: hidden;
+	width: 160px;
+}
+.progress > i {
+	display: block;
+	height: 100%;
+	background: #7c3aed;
+	border-radius: 999px;
+}
+.badge {
+	display: inline-block;
+	padding: 4px 8px;
+	border-radius: 999px;
+	background: #e6fffa;
+	font-size: 0.8rem;
+	margin-left: 6px;
+}
+.chart-labels {
+	display: flex;
+	gap: 16px;
+	margin-top: 18px;
+}
+.dot {
+	display: inline-block;
+	width: 12px;
+	height: 12px;
+	border-radius: 50%;
+	margin-right: 6px;
+}
+.dot-given {
+	background: #7c3aed;
+}
+.dot-byme {
+	background: #38bdf8;
+}

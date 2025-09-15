@@ -11,5 +11,8 @@ export const routes: Routes = [
     },
     {
         path: 'recognition-form', component: RecognitionFormComponent
+    },
+    {
+        path:'my-recognitions', loadComponent: () => import('./pages/recognition-list/my-recognitions.component').then(m => m.MyRecognitionsComponent)
     }
 ];

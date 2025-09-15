@@ -1,0 +1,16 @@
+.recognitions-container {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  padding: 24px;
+}
+
+mat-card {
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.mat-table {
+  width: 100%;
+}
