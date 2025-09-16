@@ -10,6 +10,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatIconModule } from '@angular/material/icon';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatButton, MatButtonModule } from '@angular/material/button';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
     imports: [
@@ -23,7 +24,8 @@ import { MatButton, MatButtonModule } from '@angular/material/button';
         MatProgressBarModule,
         MatSelectModule,
         MatIconModule,
-        MatAutocompleteModule
+        MatAutocompleteModule,
+        MatTooltipModule,
     ],
     exports: [
         CommonModule,
@@ -37,7 +39,8 @@ import { MatButton, MatButtonModule } from '@angular/material/button';
         MatSelectModule,
         MatIconModule,
         MatAutocompleteModule,
-        MatButtonModule
+        MatButtonModule,
+        MatTooltipModule
     ]
 })
 export class SharedModule { }

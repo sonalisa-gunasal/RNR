@@ -8,6 +8,10 @@ import { SharedModule } from '../../shared/shared.module';
   styleUrl: './dashboard.component.scss'
 })
 export class DashboardComponent implements AfterViewInit {
+  totalPointsGivenToMe = 0;
+  totalPointsGivenByMe = 0;
+  topCategoryGivenToMe = '';
+  myCurrentRank = 0;
   // Sample points for doughnut chart (hardcoded)
   doughnutData = {
     labels: ['Bug Fix', 'Help', 'Innovation', 'Customer Appreciation'],
@@ -15,19 +19,36 @@ export class DashboardComponent implements AfterViewInit {
     givenByMe: [10, 6, 9, 3]
   };
   leaderboard = [
-    { name: "Aisha Khan", dept: "Sales", points: 270 },
-    { name: "Ravi Patel", dept: "Engineering", points: 240 },
-    { name: "Meera Singh", dept: "Customer Success", points: 210 },
-    { name: "Jon Lee", dept: "Design", points: 190 },
-    { name: "Sara Ahmed", dept: "Finance", points: 170 },
-    { name: "Dev Raj", dept: "Engineering", points: 150 }
+    { name: "Aisha Khan", dept: "Sales", points: 270, avatar: "https://randomuser.me/api/portraits/women/1.jpg" },
+    { name: "Ravi Patel", dept: "Engineering", points: 240, avatar: "https://randomuser.me/api/portraits/men/2.jpg" },
+    { name: "Meera Singh", dept: "Customer Success", points: 210, avatar: "https://randomuser.me/api/portraits/women/3.jpg" },
+    { name: "Jon Lee", dept: "Design", points: 190, avatar: "https://randomuser.me/api/portraits/men/4.jpg" },
+    { name: "Sara Ahmed", dept: "Finance", points: 170, avatar: "https://randomuser.me/api/portraits/women/5.jpg" },
+    { name: "Dev Raj", dept: "Engineering", points: 150, avatar: "https://randomuser.me/api/portraits/men/6.jpg" }
   ];
   filteredLeaderboard = [...this.leaderboard];
   searchQuery = '';
   period = 'monthly';
 
+  currentUser = {
+    id: 1,
+    name: 'Aisha Khan',
+    avatar: 'https://randomuser.me/api/portraits/women/1.jpg',
+    badges: [
+      { name: 'Top Performer', icon: 'assets/badges/top-performer.png' },
+      { name: 'Team Player', icon: 'assets/badges/team-player.png' }
+    ]
+  };
+
   ngOnInit() {
     this.sortLeaderboard();
+    this.totalPointsGivenToMe = this.doughnutData.givenToMe.reduce((sum, val) => sum + val, 0);
+    this.totalPointsGivenByMe = this.doughnutData.givenByMe.reduce((sum, val) => sum + val, 0);
+    // Top category given to me
+    const maxIdx = this.doughnutData.givenToMe.indexOf(Math.max(...this.doughnutData.givenToMe));
+    this.topCategoryGivenToMe = this.doughnutData.labels[maxIdx];
+    // Assume current user is first in leaderboard for demo
+    this.myCurrentRank = this.filteredLeaderboard.findIndex(row => row.name === 'Aisha Khan') + 1;
   }
 
   ngAfterViewInit() {
@@ -124,9 +145,16 @@ export class DashboardComponent implements AfterViewInit {
     ).sort((a, b) => b.points - a.points);
   }
 
-  // onPeriodChange(period: string) {
-  //   this.period = period;
-  //   // In a real app, fetch data for the selected period
-  //   this.sortLeaderboard();
-  // }
+  onPeriodChange(period: string) {
+    this.period = period;
+    // In a real app, fetch data for the selected period
+    this.sortLeaderboard();
+  }
+
+  clearFilters() {
+    this.searchQuery = '';
+    this.period = 'monthly';
+    this.onSearch(this.searchQuery);
+    this.onPeriodChange(this.period);
+  }
 }
