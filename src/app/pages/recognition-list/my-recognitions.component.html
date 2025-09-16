@@ -1,61 +1,170 @@
-<div class="recognitions-container">
-  <mat-card>
-    <mat-card-title>Recognitions Given To Me</mat-card-title>
-    <mat-card-content>
-      <table mat-table [dataSource]="received" class="mat-elevation-z2">
-        <ng-container matColumnDef="name">
-          <th mat-header-cell *matHeaderCellDef>Name</th>
-          <td mat-cell *matCellDef="let row">{{row.name}}</td>
-        </ng-container>
-        <ng-container matColumnDef="category">
-          <th mat-header-cell *matHeaderCellDef>Category</th>
-          <td mat-cell *matCellDef="let row">{{row.category}}</td>
-        </ng-container>
-        <ng-container matColumnDef="date">
-          <th mat-header-cell *matHeaderCellDef>Date</th>
-          <td mat-cell *matCellDef="let row">{{row.date}}</td>
-        </ng-container>
-        <ng-container matColumnDef="comments">
-          <th mat-header-cell *matHeaderCellDef>Comments</th>
-          <td mat-cell *matCellDef="let row">{{row.comments}}</td>
-        </ng-container>
-        <ng-container matColumnDef="points">
-          <th mat-header-cell *matHeaderCellDef>Points</th>
-          <td mat-cell *matCellDef="let row">{{row.points}}</td>
-        </ng-container>
-  <tr mat-header-row *matHeaderRowDef="['name','category','date','comments','points']"></tr>
-  <tr mat-row *matRowDef="let row; columns: ['name','category','date','comments','points'];"></tr>
-      </table>
-    </mat-card-content>
-  </mat-card>
+<div style="background: #f5f7fa; min-height: 100vh; padding: 32px;">
+  <h2 style="font-weight: 600; color: #2d3748; margin-bottom: 32px; letter-spacing: 1px;">My Recognitions</h2>
+  <div class="recognitions-container" style="width: 100%;">
+    <!-- Recognitions Given To Me -->
+    <mat-card class="recognition-card mat-elevation-z4" style="border-radius: 16px; margin-bottom: 32px; padding: 24px; width: 100%;">
+      <mat-card-title style="font-size: 1.3rem; font-weight: 500; color: #3b4252; margin-bottom: 16px;">
+        <mat-icon style="vertical-align: middle; margin-right: 8px; color: #1976d2;">emoji_events</mat-icon>
+        Recognitions Given To Me
+      </mat-card-title>
+      <mat-card-content>
+        <div class="table-header" style="display: flex; justify-content: flex-end; align-items: center; gap: 20px; margin-bottom: 12px;">
+          <mat-form-field appearance="outline" class="filter-field" style="min-width: 220px;">
+            <mat-label>Search</mat-label>
+            <input matInput (keyup)="applyReceivedFilter($any($event.target).value)" placeholder="Search...">
+            <mat-icon matSuffix>search</mat-icon>
+          </mat-form-field>
+        </div>
+        <div class="table-wrapper" style="background: #fff; border-radius: 12px; overflow: hidden; width: 100%;">
+          <table mat-table [dataSource]="receivedDataSource" matSort #receivedSort="matSort" class="custom-table" style="width: 100%;">
+            <!-- Name -->
+            <ng-container matColumnDef="name">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                <span style="display: flex; align-items: center;">
+                  <mat-icon style="font-size: 18px; vertical-align: middle; margin-right: 4px;">person</mat-icon>
+                  Name
+                </span>
+              </th>
+              <td mat-cell *matCellDef="let row"> {{row.name}} </td>
+            </ng-container>
+            <!-- Category -->
+            <ng-container matColumnDef="category">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                <span style="display: flex; align-items: center;">
+                  <mat-icon style="font-size: 18px; vertical-align: middle; margin-right: 4px;">category</mat-icon>
+                  Category
+                </span>
+              </th>
+              <td mat-cell *matCellDef="let row">
+                <mat-chip color="primary" selected>{{row.category}}</mat-chip>
+              </td>
+            </ng-container>
+            <!-- Date -->
+            <ng-container matColumnDef="date">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                <span style="display: flex; align-items: center;">
+                  <mat-icon style="font-size: 18px; vertical-align: middle; margin-right: 4px;">calendar_today</mat-icon>
+                  Date
+                </span>
+              </th>
+              <td mat-cell *matCellDef="let row">{{row.date | date:'mediumDate'}}</td>
+            </ng-container>
+            <!-- Comments -->
+            <ng-container matColumnDef="comments">
+              <th mat-header-cell *matHeaderCellDef>
+                <mat-icon style="font-size: 18px; vertical-align: middle; margin-right: 4px;">comment</mat-icon>
+                Comments
+              </th>
+              <td mat-cell *matCellDef="let row">{{row.comments}}</td>
+            </ng-container>
+            <!-- Points -->
+            <ng-container matColumnDef="points">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                <span style="display: flex; align-items: center;">
+                  <mat-icon style="font-size: 18px; vertical-align: middle; margin-right: 4px;">star</mat-icon>
+                  Points
+                </span>
+              </th>
+              <td mat-cell *matCellDef="let row">
+                <mat-chip color="accent" selected>{{row.points}}</mat-chip>
+              </td>
+            </ng-container>
+            <!-- Rows -->
+            <tr mat-header-row *matHeaderRowDef="['name','category','date','comments','points']"></tr>
+            <tr mat-row *matRowDef="let row; columns: ['name','category','date','comments','points'];"
+                style="transition: background 0.2s; cursor: pointer;"
+                [ngStyle]="{'background': hoveredRow === row ? '#f0f4fa' : ''}"
+                (mouseenter)="hoveredRow = row" (mouseleave)="hoveredRow = null"></tr>
+          </table>
+          <mat-paginator #receivedPaginator [length]="receivedDataSource.filteredData.length || 0"
+                         [pageSize]="10" [pageSizeOptions]="[5,10,20]" showFirstLastButtons>
+          </mat-paginator>
+        </div>
+      </mat-card-content>
+    </mat-card>
 
-  <mat-card style="margin-top:32px;">
-    <mat-card-title>Recognitions I Gave</mat-card-title>
-    <mat-card-content>
-      <table mat-table [dataSource]="given" class="mat-elevation-z2">
-        <ng-container matColumnDef="name">
-          <th mat-header-cell *matHeaderCellDef>Name</th>
-          <td mat-cell *matCellDef="let row">{{row.name}}</td>
-        </ng-container>
-        <ng-container matColumnDef="category">
-          <th mat-header-cell *matHeaderCellDef>Category</th>
-          <td mat-cell *matCellDef="let row">{{row.category}}</td>
-        </ng-container>
-        <ng-container matColumnDef="date">
-          <th mat-header-cell *matHeaderCellDef>Date</th>
-          <td mat-cell *matCellDef="let row">{{row.date}}</td>
-        </ng-container>
-        <ng-container matColumnDef="comments">
-          <th mat-header-cell *matHeaderCellDef>Comments</th>
-          <td mat-cell *matCellDef="let row">{{row.comments}}</td>
-        </ng-container>
-        <ng-container matColumnDef="points">
-          <th mat-header-cell *matHeaderCellDef>Points</th>
-          <td mat-cell *matCellDef="let row">{{row.points}}</td>
-        </ng-container>
-  <tr mat-header-row *matHeaderRowDef="['name','category','date','comments','points']"></tr>
-  <tr mat-row *matRowDef="let row; columns: ['name','category','date','comments','points'];"></tr>
-      </table>
-    </mat-card-content>
-  </mat-card>
+    <mat-divider style="margin: 32px 0;"></mat-divider>
+
+    <!-- Recognitions I Gave -->
+    <mat-card class="recognition-card mat-elevation-z4" style="border-radius: 16px; padding: 24px; width: 100%;">
+      <mat-card-title style="font-size: 1.3rem; font-weight: 500; color: #3b4252; margin-bottom: 16px;">
+        <mat-icon style="vertical-align: middle; margin-right: 8px; color: #388e3c;">thumb_up</mat-icon>
+        Recognitions I Gave
+      </mat-card-title>
+      <mat-card-content>
+        <div class="table-header" style="display: flex; justify-content: flex-end; align-items: center; gap: 20px; margin-bottom: 12px;">
+          <mat-form-field appearance="outline" class="filter-field" style="min-width: 220px;">
+            <mat-label>Search</mat-label>
+            <input matInput (keyup)="applyGivenFilter($any($event.target).value)" placeholder="Search...">
+            <mat-icon matSuffix>search</mat-icon>
+          </mat-form-field>
+        </div>
+        <div class="table-wrapper" style="background: #fff; border-radius: 12px; overflow: hidden; width: 100%;">
+          <table mat-table [dataSource]="givenDataSource" matSort #givenSort="matSort" class="custom-table mat-elevation-z2" style="width: 100%;">
+            <!-- Name -->
+            <ng-container matColumnDef="name">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                <span style="display: flex; align-items: center;">
+                  <mat-icon style="font-size: 18px; vertical-align: middle; margin-right: 4px;">person</mat-icon>
+                  Name
+                </span>
+              </th>
+              <td mat-cell *matCellDef="let row"> {{row.name}} </td>
+            </ng-container>
+            <!-- Category -->
+            <ng-container matColumnDef="category">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                <span style="display: flex; align-items: center;">
+                  <mat-icon style="font-size: 18px; vertical-align: middle; margin-right: 4px;">category</mat-icon>
+                  Category
+                </span>
+              </th>
+              <td mat-cell *matCellDef="let row">
+                <mat-chip color="primary" selected>{{row.category}}</mat-chip>
+              </td>
+            </ng-container>
+            <!-- Date -->
+            <ng-container matColumnDef="date">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                <span style="display: flex; align-items: center;">
+                  <mat-icon style="font-size: 18px; vertical-align: middle; margin-right: 4px;">calendar_today</mat-icon>
+                  Date
+                </span>
+              </th>
+              <td mat-cell *matCellDef="let row">{{row.date | date:'mediumDate'}}</td>
+            </ng-container>
+            <!-- Comments -->
+            <ng-container matColumnDef="comments">
+              <th mat-header-cell *matHeaderCellDef>
+                <mat-icon style="font-size: 18px; vertical-align: middle; margin-right: 4px;">comment</mat-icon>
+                Comments
+              </th>
+              <td mat-cell *matCellDef="let row">{{row.comments}}</td>
+            </ng-container>
+            <!-- Points -->
+            <ng-container matColumnDef="points">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                <span style="display: flex; align-items: center;">
+                  <mat-icon style="font-size: 18px; vertical-align: middle; margin-right: 4px;">star</mat-icon>
+                  Points
+                </span>
+              </th>
+              <td mat-cell *matCellDef="let row">
+                <mat-chip color="accent" selected>{{row.points}}</mat-chip>
+              </td>
+            </ng-container>
+            <!-- Rows -->
+            <tr mat-header-row *matHeaderRowDef="['name','category','date','comments','points']"></tr>
+            <tr mat-row *matRowDef="let row; columns: ['name','category','date','comments','points'];"
+                style="transition: background 0.2s; cursor: pointer;"
+                [ngStyle]="{'background': hoveredRow === row ? '#f0f4fa' : ''}"
+                (mouseenter)="hoveredRow = row" (mouseleave)="hoveredRow = null"></tr>
+          </table>
+        </div>
+        <mat-paginator #givenPaginator [length]="givenDataSource.filteredData.length || 0"
+                       [pageSize]="10" [pageSizeOptions]="[5,10,20]" showFirstLastButtons>
+        </mat-paginator>
+      </mat-card-content>
+    </mat-card>
+  </div>
 </div>

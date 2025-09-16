@@ -23,8 +23,8 @@
         </mat-card>
     </div>
     <!-- Top Section: Split Left (Chart) and Right (Profile) -->
-    <div class="dashboard-top">
-        <div class="dashboard-top-left">
+    <div class="dashboard-top" style="display:flex;gap:24px;">
+        <mat-card style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;">
             <!-- Doughnut Chart Inline -->
             <div style="width:320px;height:320px;display:flex;align-items:center;justify-content:center;">
                 <canvas id="doughnutChart"></canvas>
@@ -33,22 +33,22 @@
                 <div matTooltip="Recognitions others gave you"><span class="dot dot-given"></span> Given To Me</div>
                 <div matTooltip="Recognitions you gave others"><span class="dot dot-byme"></span> Given By Me</div>
             </div>
-        </div>
-        <div class="dashboard-top-right">
+        </mat-card>
+        <mat-card style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;">
             <div style="width:100%;height:320px;display:flex;align-items:center;justify-content:center;">
                 <canvas id="categoryBarChart"></canvas>
             </div>
-        </div>
+        </mat-card>
     </div>
 
     <!-- Bottom Section: Leaderboard -->
-    <div class="dashboard-bottom">
-        <div class="leaderboard-container">
+    <!-- <div class="dashboard-bottom"> -->
+        <!-- <div class="leaderboard-container"> -->
             <mat-card>
                 <mat-card-header>
-                    <div style="display:flex;align-items:center;width:100%;">
+                    <!-- <div style="display:flex;align-items:center;width:100%;"> -->
                         <mat-card-title style="margin:0;">Employee Recognition Leaderboard</mat-card-title>
-                        <div class="filters" style="display:flex;gap:12px;align-items:center;margin-left:auto;">
+                        <!-- <div class="filters" style="display:flex;gap:12px;align-items:center;margin-left:auto;">
                             <mat-form-field appearance="outline" class="compact-field">
                                 <mat-label>Search</mat-label>
                                 <input matInput [(ngModel)]="searchQuery" (input)="onSearch(searchQuery)"
@@ -63,18 +63,18 @@
                                     <mat-option value="year">Year</mat-option>
                                 </mat-select>
                             </mat-form-field>
-                            <!-- <mat-form-field appearance="outline" class="compact-field">
+                            <mat-form-field appearance="outline" class="compact-field">
                                 <mat-label>Department</mat-label>
                                 <mat-select [(ngModel)]="deptFilter" (selectionChange)="onDeptFilterChange(deptFilter)">
                                     <mat-option value="">All</mat-option>
                                     <mat-option *ngFor="let dept of departments" [value]="dept">{{dept}}</mat-option>
                                 </mat-select>
-                            </mat-form-field> -->
+                            </mat-form-field>
                             <button mat-stroked-button color="primary" (click)="clearFilters()" class="compact-btn">
                                 Clear
                             </button>
-                        </div>
-                    </div>
+                        </div> -->
+                    <!-- </div> -->
                 </mat-card-header>
                 <mat-card-content>
                     <ng-container *ngIf="filteredLeaderboard.length > 0; else noResults">
@@ -133,6 +133,6 @@
                     </ng-template>
                 </mat-card-content>
             </mat-card>
-        </div>
-    </div>
+        <!-- </div> -->
+    <!-- </div> -->
 </div>

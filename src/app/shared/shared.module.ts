@@ -11,6 +11,10 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatButton, MatButtonModule } from '@angular/material/button';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatSortModule } from '@angular/material/sort';
+import { MatDividerModule } from '@angular/material/divider';
 
 @NgModule({
     imports: [
@@ -26,6 +30,10 @@ import { MatTooltipModule } from '@angular/material/tooltip';
         MatIconModule,
         MatAutocompleteModule,
         MatTooltipModule,
+        MatPaginatorModule,
+        MatChipsModule,
+        MatSortModule,
+        MatDividerModule
     ],
     exports: [
         CommonModule,
@@ -40,7 +48,11 @@ import { MatTooltipModule } from '@angular/material/tooltip';
         MatIconModule,
         MatAutocompleteModule,
         MatButtonModule,
-        MatTooltipModule
+        MatTooltipModule,
+        MatPaginatorModule,
+        MatChipsModule,
+        MatSortModule,
+        MatDividerModule
     ]
 })
 export class SharedModule { }
