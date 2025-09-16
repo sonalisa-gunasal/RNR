@@ -113,18 +113,26 @@ textarea {
     gap: 10px
 }
 
+// Normal chip: light color
 .chip {
     user-select: none;
     cursor: pointer;
-    border: 1px solid rgba(255, 255, 255, .1);
+    border: 1px solid #e0e7ef;
     padding: 10px 12px;
     border-radius: 12px;
-    background: rgba(255, 255, 255, .04)
+    background: #f3f4f6;
+    color: #444;
+    transition: background 0.2s, border-color 0.2s, color 0.2s;
 }
 
+// Selected chip: dark and highlighted
+.chip.selected,
 .chip[aria-checked="true"] {
-    background: linear-gradient(135deg, rgba(124, 58, 237, .25), rgba(34, 211, 238, .18));
-    border-color: rgba(167, 139, 250, .55)
+    background: linear-gradient(135deg, #7c3aed 80%, #22d3ee 100%);
+    border-color: #7c3aed;
+    color: #fff;
+    font-weight: bold;
+    box-shadow: 0 0 0 2px #7c3aed33;
 }
 
 

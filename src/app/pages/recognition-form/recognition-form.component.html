@@ -13,12 +13,13 @@
 
         <hr />
 
-        <form [formGroup]="form" (ngSubmit)="submit()" novalidate>
+    <form [formGroup]="form" (ngSubmit)="submit()" novalidate>
+    <!-- Error toast replaced by MatSnackBar -->
             <div class="grid">
                 <div class="field">
                     <mat-form-field class="example-full-width">
                         <input type="text" placeholder="Choose Team Mate" aria-label="Number" matInput
-                            [matAutocomplete]="auto">
+                            [matAutocomplete]="auto" formControlName="recognizedTo" required>
                         <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
                             @for (item of users; track item) {
                             <mat-option [value]="item.userId">{{item.name}}</mat-option>
@@ -26,27 +27,27 @@
                         </mat-autocomplete>
                     </mat-form-field>
                     <div class="help">Start typing (autocomplete)</div>
+                    <mat-error *ngIf="form.get('recognizedTo')?.invalid && (form.get('recognizedTo')?.touched || submitted)">Team Mate is required</mat-error>
                 </div>
 
                 <div class="field">
                     <label>Category</label>
                     <div class="chips" role="radiogroup" aria-label="Category">
                         <button type="button" class="chip" role="radio"
-                            [attr.aria-checked]="form.value.category==='Bug Fix'" (click)="setCategory('Bug Fix')">🐞
-                            Bug
-                            Fix</button>
+                            [class.selected]="form.value.category==='Bug Fix'"
+                            [attr.aria-checked]="form.value.category==='Bug Fix'" (click)="setCategory('Bug Fix')">🐞 Bug Fix</button>
                         <button type="button" class="chip" role="radio"
-                            [attr.aria-checked]="form.value.category==='Help'" (click)="setCategory('Help')">🤝
-                            Help</button>
+                            [class.selected]="form.value.category==='Help'"
+                            [attr.aria-checked]="form.value.category==='Help'" (click)="setCategory('Help')">🤝 Help</button>
                         <button type="button" class="chip" role="radio"
-                            [attr.aria-checked]="form.value.category==='Innovation'"
-                            (click)="setCategory('Innovation')">💡
-                            Innovation</button>
+                            [class.selected]="form.value.category==='Innovation'"
+                            [attr.aria-checked]="form.value.category==='Innovation'" (click)="setCategory('Innovation')">💡 Innovation</button>
                         <button type="button" class="chip" role="radio"
-                            [attr.aria-checked]="form.value.category==='Customer Appreciation'"
-                            (click)="setCategory('Customer Appreciation')">💬 Customer Appreciation</button>
+                            [class.selected]="form.value.category==='Customer Appreciation'"
+                            [attr.aria-checked]="form.value.category==='Customer Appreciation'" (click)="setCategory('Customer Appreciation')">💬 Customer Appreciation</button>
                     </div>
                     <div class="help">Pick exactly one</div>
+                        <mat-error *ngIf="form.get('category')?.invalid && (form.get('category')?.touched || submitted)">Category is required</mat-error>
                 </div>
             </div>
 
@@ -54,8 +55,9 @@
             <div class="field">
                 <label>Comments</label>
                 <textarea rows="5" maxlength="500" formControlName="comments"
-                    placeholder="Describe the contribution…"></textarea>
+                    placeholder="Describe the contribution…" required></textarea>
                 <div class="help">{{charCount()}}/500 characters</div>
+                <mat-error *ngIf="form.get('comments')?.invalid && (form.get('comments')?.touched || submitted)">Comments are required</mat-error>
             </div>
 
 
@@ -65,12 +67,12 @@
                 <ng-template #loading>Submitting…</ng-template>
             </button> -->
 
-                <button mat-raised-button class="btn-secondary">
+                <button mat-raised-button class="btn-secondary" type="button" (click)="form.reset()">
                     <mat-icon>undo</mat-icon>
                     Reset
                 </button>
 
-                <button mat-raised-button color="primary">
+                <button mat-raised-button color="primary" type="submit" [disabled]="submitting">
                     <mat-icon>check</mat-icon>
                     Submit
                 </button>

@@ -35,13 +35,48 @@ export class DashboardComponent implements AfterViewInit {
     // @ts-ignore
     if (window.Chart) {
       this.renderDoughnut();
+      this.renderBarChart();
     } else {
       // Dynamically load Chart.js if not present
       const script = document.createElement('script');
       script.src = 'https://cdn.jsdelivr.net/npm/chart.js';
-      script.onload = () => this.renderDoughnut();
+      script.onload = () => {
+        this.renderDoughnut();
+        this.renderBarChart();
+      };
       document.body.appendChild(script);
     }
+  }
+
+  renderBarChart() {
+    // @ts-ignore
+    const Chart = window.Chart;
+    const ctx = document.getElementById('categoryBarChart');
+    if (!ctx) return;
+    new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: ['Bug Fix', 'Help', 'Innovation', 'Customer Appreciation'],
+        datasets: [
+          {
+            label: 'Points',
+            data: [5, 10, 15, 8],
+            backgroundColor: ['#7c3aed', '#38bdf8', '#fbbf24', '#f472b6'],
+            borderWidth: 1
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: { display: false },
+          title: { display: true, text: 'Category Points' }
+        },
+        scales: {
+          y: { beginAtZero: true }
+        }
+      }
+    });
   }
 
   renderDoughnut() {

@@ -1,43 +1,35 @@
-
 <div class="dashboard-container">
-	<!-- Top Section: Split Left (Chart) and Right (Profile) -->
-	<div class="dashboard-top">
-		<div class="dashboard-top-left">
-					<!-- Doughnut Chart Inline -->
-					<div style="width:320px;height:320px;display:flex;align-items:center;justify-content:center;">
-						<canvas id="doughnutChart"></canvas>
-					</div>
-					<div class="chart-labels">
-						<div><span class="dot dot-given"></span> Given To Me</div>
-						<div><span class="dot dot-byme"></span> Given By Me</div>
-					</div>
-		</div>
-		<div class="dashboard-top-right">
-			<div class="profile-card">
-				<div class="profile-avatar">👤</div>
-				<div class="profile-info">
-					<div class="profile-name">Sonalisa</div>
-					<div class="profile-email">xaviersonalisagmail.com</div>
-					<div class="profile-team">Team: Engineering</div>
-					<div class="profile-points">Points: 240</div>
-				</div>
-			</div>
-		</div>
-	</div>
+    <!-- Top Section: Split Left (Chart) and Right (Profile) -->
+    <div class="dashboard-top">
+        <div class="dashboard-top-left">
+            <!-- Doughnut Chart Inline -->
+            <div style="width:320px;height:320px;display:flex;align-items:center;justify-content:center;">
+                <canvas id="doughnutChart"></canvas>
+            </div>
+            <div class="chart-labels">
+                <div><span class="dot dot-given"></span> Given To Me</div>
+                <div><span class="dot dot-byme"></span> Given By Me</div>
+            </div>
+        </div>
+        <div class="dashboard-top-right">
+            <div style="width:100%;height:320px;display:flex;align-items:center;justify-content:center;">
+                <canvas id="categoryBarChart"></canvas>
+            </div>
+        </div>
+    </div>
 
-	<!-- Bottom Section: Leaderboard -->
-	<div class="dashboard-bottom">
-		<div class="leaderboard-container">
-			<mat-card>
-				<mat-card-header>
-					<mat-card-title>Employee Recognition Leaderboard</mat-card-title>
-					<mat-card-subtitle>
+    <!-- Bottom Section: Leaderboard -->
+    <div class="dashboard-bottom">
+        <div class="leaderboard-container">
+            <mat-card>
+                <mat-card-header>
+                    <mat-card-title>Employee Recognition Leaderboard</mat-card-title>
+                    <!-- <mat-card-subtitle>
 						<div class="filters">
 							<mat-form-field appearance="outline">
 								<mat-label>Search employee</mat-label>
 								<input matInput [(ngModel)]="searchQuery" (input)="onSearch(searchQuery)" />
-							</mat-form-field>
-							<!--
+							</mat-form-field>							
 							<mat-form-field appearance="outline">
 								<mat-label>Period</mat-label>
 								<mat-select [(ngModel)]="period" (selectionChange)="onPeriodChange(period)">
@@ -46,49 +38,52 @@
 									<mat-option value="year">This Year</mat-option>
 								</mat-select>
 							</mat-form-field>
-							-->
 						</div>
-					</mat-card-subtitle>
-				</mat-card-header>
-				<mat-card-content>
-					<table mat-table [dataSource]="filteredLeaderboard" class="mat-elevation-z2" multiTemplateDataRows>
-						<!-- Rank Column -->
-						<ng-container matColumnDef="rank">
-							<th mat-header-cell *matHeaderCellDef>Rank</th>
-							<td mat-cell *matCellDef="let row; let idx = index">
-								{{idx+1}}
-								<span *ngIf="idx===0">🥇</span><span *ngIf="idx===1">🥈</span><span *ngIf="idx===2">🥉</span>
-							</td>
-						</ng-container>
-						<!-- Name Column -->
-						<ng-container matColumnDef="name">
-							<th mat-header-cell *matHeaderCellDef>Employee</th>
-							<td mat-cell *matCellDef="let row">{{row.name}}</td>
-						</ng-container>
-						<!-- Department Column -->
-						<ng-container matColumnDef="dept">
-							<th mat-header-cell *matHeaderCellDef>Department</th>
-							<td mat-cell *matCellDef="let row">{{row.dept}}</td>
-						</ng-container>
-						<!-- Points Column -->
-						<ng-container matColumnDef="points">
-							<th mat-header-cell *matHeaderCellDef>Points</th>
-							<td mat-cell *matCellDef="let row">{{row.points}}</td>
-						</ng-container>
-						<!-- Progress Column -->
-						<ng-container matColumnDef="progress">
-							<th mat-header-cell *matHeaderCellDef>Progress</th>
-							<td mat-cell *matCellDef="let row">
-								<mat-progress-bar mode="determinate" [value]="(row.points/300)*100"></mat-progress-bar>
-							</td>
-						</ng-container>
+					</mat-card-subtitle> -->
+                </mat-card-header>
+                <mat-card-content>
+                    <table mat-table [dataSource]="filteredLeaderboard" class="mat-elevation-z2" multiTemplateDataRows>
+                        <!-- Rank Column -->
+                        <ng-container matColumnDef="rank">
+                            <th mat-header-cell *matHeaderCellDef>Rank</th>
+                            <td mat-cell *matCellDef="let row">
+                                {{filteredLeaderboard.indexOf(row) + 1}}
+                                <span *ngIf="filteredLeaderboard.indexOf(row) === 0">🥇</span><span
+                                    *ngIf="filteredLeaderboard.indexOf(row) === 1">🥈</span><span
+                                    *ngIf="filteredLeaderboard.indexOf(row) === 2">🥉</span>
 
-						<tr mat-header-row *matHeaderRowDef="['rank','name','dept','points','progress']"></tr>
-						<tr mat-row *matRowDef="let row; columns: ['rank','name','dept','points','progress'];"></tr>
-					</table>
-				</mat-card-content>
-			</mat-card>
-		</div>
-	</div>
+                            </td>
+                        </ng-container>
+                        <!-- Name Column -->
+                        <ng-container matColumnDef="name">
+                            <th mat-header-cell *matHeaderCellDef>Employee</th>
+                            <td mat-cell *matCellDef="let row">{{row.name}}</td>
+                        </ng-container>
+                        <!-- Department Column -->
+                        <ng-container matColumnDef="dept">
+                            <th mat-header-cell *matHeaderCellDef>Department</th>
+                            <td mat-cell *matCellDef="let row">{{row.dept}}</td>
+                        </ng-container>
+                        <!-- Points Column -->
+                        <ng-container matColumnDef="points">
+                            <th mat-header-cell *matHeaderCellDef>Points</th>
+                            <td mat-cell *matCellDef="let row">{{row.points}}</td>
+                        </ng-container>
+                        <!-- Progress Column -->
+                        <ng-container matColumnDef="progress">
+                            <th mat-header-cell *matHeaderCellDef>Progress</th>
+                            <td mat-cell *matCellDef="let row">
+                                <mat-progress-bar mode="determinate" [value]="(row.points/300)*100"></mat-progress-bar>
+                            </td>
+                        </ng-container>
+
+                        <tr mat-header-row *matHeaderRowDef="['rank','name','dept','points','progress']"></tr>
+                        <tr mat-row
+                            *matRowDef="let row; let i = index; columns: ['rank','name','dept','points','progress'];">
+                        </tr>
+                    </table>
+                </mat-card-content>
+            </mat-card>
+        </div>
+    </div>
 </div>
-
